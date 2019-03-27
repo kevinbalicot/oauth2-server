@@ -4,7 +4,7 @@ EXPOSE 8080
 
 ENV APACHE_DOCUMENT_ROOT /var/www/html/public/
 
-RUN apt-get update -y && apt-get install -y wget
+RUN apt-get update -y && apt-get install -y wget git zip unzip
 RUN docker-php-ext-install pdo pdo_mysql
 RUN a2enmod rewrite
 
