@@ -1,0 +1,16 @@
+AuthenticationServer\Entity\Scope:
+  type: entity
+  table: scope
+
+  id:
+    identifier:
+      type: string
+
+  manyToMany:
+    users:
+      targetEntity: AuthenticationServer\Entity\User
+      mappedBy: scopes
+
+    clients:
+      targetEntity: AuthenticationServer\Entity\Client
+      mappedBy: scopes

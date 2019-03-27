@@ -1,0 +1,7 @@
+#!/bin/bash
+
+vendor/bin/doctrine orm:validate-schema --skip-sync
+vendor/bin/doctrine orm:schema-tool:drop --force
+vendor/bin/doctrine orm:schema-tool:create
+vendor/bin/doctrine orm:validate-schema --skip-mapping
+vendor/bin/doctrine dbal:import resources/sql/init.sql

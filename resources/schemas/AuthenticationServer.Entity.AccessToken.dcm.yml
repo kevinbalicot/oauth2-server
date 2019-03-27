@@ -1,0 +1,46 @@
+AuthenticationServer\Entity\AccessToken:
+    type: entity
+    table: access_token
+
+    id:
+        identifier:
+            type: string
+
+    fields:
+        expiryDateTime:
+            type: datetime
+
+        userIdentifier:
+            type: string
+            nullable: true
+
+        revoked:
+            type: boolean
+            default: false
+
+    manyToOne:
+        client:
+            targetEntity: AuthenticationServer\Entity\Client
+            joinColumn:
+                name: client_identifier
+                referencedColumnName: identifier
+            nullable: true
+
+        user:
+            targetEntity: AuthenticationServer\Entity\User
+            joinColumn:
+                name: user_identifier
+                referencedColumnName: identifier
+            nullable: true
+
+    manyToMany:
+        scopes:
+            targetEntity: AuthenticationServer\Entity\Scope
+            joinTable:
+                name: access_tokens_scopes
+                joinColumns:
+                    access_token_identifier:
+                        referencedColumnName: identifier
+                inverseJoinColumns:
+                    scope_identifier:
+                        referencedColumnName: identifier

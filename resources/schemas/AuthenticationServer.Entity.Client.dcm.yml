@@ -1,0 +1,40 @@
+AuthenticationServer\Entity\Client:
+  type: entity
+  table: client
+
+  id:
+    identifier:
+      type: string
+
+  fields:
+    secret:
+      type: string
+    name:
+      type: string
+    redirectUri:
+      type: string
+      nullable: true
+
+  manyToMany:
+    scopes:
+      targetEntity: AuthenticationServer\Entity\Scope
+      joinTable:
+        name: clients_scopes
+        joinColumns:
+          client_identifier:
+            referencedColumnName: identifier
+        inverseJoinColumns:
+          scope_identifier:
+            referencedColumnName: identifier
+
+    users:
+      targetEntity: AuthenticationServer\Entity\User
+      joinTable:
+        name: clients_users
+        joinColumns:
+          client_identifier:
+            referencedColumnName: identifier
+        inverseJoinColumns:
+          user_identifier:
+            referencedColumnName: identifier
+      inversedBy: clients

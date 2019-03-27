@@ -1,0 +1,45 @@
+AuthenticationServer\Entity\RefreshToken:
+  type: entity
+  table: refresh_token
+
+  id:
+    identifier:
+      string: string
+
+  fields:
+    expiryDateTime:
+      type: datetime
+
+    userIdentifier:
+      type: string
+
+    revoked:
+      type: boolean
+      default: false
+
+  oneToOne:
+    accessToken:
+      targetEntity: AuthenticationServer\Entity\AccessToken
+      joinColumn:
+        name: access_token_identifier
+        referencedColumnName: identifier
+
+
+  manyToOne:
+    client:
+      targetEntity: AuthenticationServer\Entity\Client
+      joinColumn:
+        name: client_identifier
+        referencedColumnName: identifier
+
+  manyToMany:
+    scopes:
+      targetEntity: AuthenticationServer\Entity\Scope
+      joinTable:
+        name: refresh_tokens_scopes
+        joinColumns:
+          refresh_token_identifier:
+            referencedColumnName: identifier
+        inverseJoinColumns:
+          scope_identifier:
+            referencedColumnName: identifier

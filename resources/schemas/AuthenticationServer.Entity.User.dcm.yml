@@ -1,0 +1,53 @@
+AuthenticationServer\Entity\User:
+  type: entity
+  table: user
+
+  id:
+    identifier:
+      type: string
+
+  fields:
+    firstName:
+      type: string
+      nullable: true
+    lastName:
+      type: string
+      nullable: true
+    email:
+      type: string
+    password:
+      type: string
+    enabled:
+      type: boolean
+      default: true
+    createdAt:
+      type: datetime
+      nullable: true
+    disabledAt:
+      type: datetime
+      nullable: true
+    attributes:
+      type: array
+      nullable: true
+    googleId:
+      type: string
+      nullable: true
+    passwordSecret:
+      type: string
+      nullable: true
+
+  manyToMany:
+    scopes:
+      targetEntity: AuthenticationServer\Entity\Scope
+      joinTable:
+        name: users_scopes
+        joinColumns:
+          user_identifier:
+            referencedColumnName: identifier
+        inverseJoinColumns:
+          scope_identifier:
+            referencedColumnName: identifier
+
+    clients:
+      targetEntity: AuthenticationServer\Entity\Client
+      mappedBy: users

@@ -1,0 +1,6 @@
+.idea/
+.vagrant/
+vendor/
+logs/
+cache/
+composer.phar
